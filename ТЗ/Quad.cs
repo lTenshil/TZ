@@ -27,6 +27,7 @@
         }
         public static void Input(out Quad quad)
         {
+            
             bool flag = true;
             Quad quad1 = new Quad("");
             while (flag)

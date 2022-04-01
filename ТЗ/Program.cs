@@ -8,8 +8,8 @@
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("Выберите добавляемую фигуру: 1 - треугольник, 2 - квадрат, 3 - прямоугольник, 4 - окружность. \n" +
-                    "Элементы управления: 0 - выход из программы, 5 - вывести список всех фигур и их параметров, 6 - очистить консоль");
+                Console.WriteLine("Выберите добавляемую фигуру: 1 - треугольник, 2 - квадрат, 3 - прямоугольник, 4 - окружность, 5 - многоугольник \n" +
+                    "Элементы управления: 0 - выход из программы, 6 - вывести список всех фигур и их параметров, 7 - очистить консоль");
                 try
                 {
                     int n = Convert.ToInt32(Console.ReadLine());
@@ -39,16 +39,23 @@
                             figures.Add(circle);
                             break;
 
+                        case 5:
+                            Polygon polygon = new Polygon("");
+                            Polygon.Input(out polygon);
+                            figures.Add(polygon);
+                            break;
+
                         case 0:
                             flag = false;
                             break;
 
-                        case 5:
+                        case 6:
                             if (figures.Count() != 0)
                             {
                                 foreach (var fig in figures)
                                 {
                                     fig.GetPerimetr();
+                                    
                                     fig.GetSquare();
                                     fig.Print();
                                 }
@@ -57,7 +64,7 @@
                                 Console.WriteLine("Вы еще не добавили ни одной фигуры. ");
                             break;
 
-                        case 6:
+                        case 7:
                             Console.Clear();
                             break;
 
@@ -69,7 +76,9 @@
                 }
                 catch (Exception ex)
                 { Console.WriteLine($"Ошибка: {ex.Message}"); }
+
             }
+            
         }
 
     }
