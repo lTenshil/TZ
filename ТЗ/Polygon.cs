@@ -66,9 +66,11 @@
         }
         public override void GetPerimetr()
         {
-            Console.WriteLine("Тест перим до: " + Perimeter);
-            Perimeter = Point.Perimeter_by_points(Vertices);
-            Console.WriteLine("Тест перим после: " + Perimeter);
+            Perimeter = Math.Round(Point.Perimeter_by_points(Vertices),2);
+        }
+        public override void GetSquare()
+        {
+            Square = Math.Round(Point.Square_by_points(Vertices),2);
         }
     }
 }

@@ -10,8 +10,7 @@
             {
                 Console.WriteLine("Выберите добавляемую фигуру: 1 - треугольник, 2 - квадрат, 3 - прямоугольник, 4 - окружность, 5 - многоугольник \n" +
                     "Элементы управления: 0 - выход из программы, 6 - вывести список всех фигур и их параметров, 7 - очистить консоль");
-                try
-                {
+               
                     int n = Convert.ToInt32(Console.ReadLine());
                     switch (n)
                     {
@@ -55,7 +54,6 @@
                                 foreach (var fig in figures)
                                 {
                                     fig.GetPerimetr();
-                                    
                                     fig.GetSquare();
                                     fig.Print();
                                 }
@@ -73,9 +71,8 @@
                             break;
                     }
 
-                }
-                catch (Exception ex)
-                { Console.WriteLine($"Ошибка: {ex.Message}"); }
+                
+                
 
             }
             
