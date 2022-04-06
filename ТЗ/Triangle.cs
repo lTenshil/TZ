@@ -22,22 +22,22 @@
         {
 
         }
-
-        public override void Print()
+        public override string ToString()
         {
-            Console.WriteLine($"{Title} со сторонами {Side_A}, {Side_B}, {Side_C}. Периметр - {Perimeter}, площадь - {Square}");
+            return $"{Title} со сторонами {Side_A}, {Side_B}, {Side_C}. Периметр - {GetPerimeter()}, площадь - {GetSquare()}";
         }
-        public override void GetPerimetr()
+        
+        public override double GetPerimeter()
         {
-            Perimeter = Math.Round(Side_A+Side_B+Side_C,2);
+            return Math.Round(Side_A+Side_B+Side_C,2);
         }
-        public override void GetSquare()
-        {   
-            var p = 0.5 * Perimeter;
-            Square = Math.Round(Math.Sqrt((p * (p - Side_A) * (p - Side_B) - (p - Side_C))),2);
+        public override double GetSquare()
+        {
+            var p = 0.5 * GetPerimeter();
+            return Math.Round(Math.Sqrt((p * (p - Side_A) * (p - Side_B) - (p - Side_C))),2);
         }
 
-        public static void Input(out Triangle triangle)
+        public static Triangle Input()
         {
                 bool flag = true;
             Triangle triangle1 = new Triangle("Треугольник");
@@ -57,7 +57,7 @@
                     else
                         Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
                 }
-            triangle = triangle1;
+            return triangle1;
         }
     }
 }

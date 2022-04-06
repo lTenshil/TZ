@@ -3,18 +3,17 @@
     internal class Figure
     {
         public string Title { get; set; } = "";
-        public double Perimeter { get; set; }
-        public double Square { get; set; }
         public Figure (string title) => Title = title;
         public Figure() { }
 
-        public virtual void Print()
-        {
-            Console.WriteLine($"Фигура - {Title}, Периметр - {Perimeter} Площадь - {Square}");
-        }
         
-        public virtual void GetPerimetr() { }
-        public virtual void GetSquare() { }
+        public override string ToString()
+        {
+            return $"Фигура - {Title}, Периметр - {GetPerimeter()} Площадь - {GetSquare()}";
+        }
+
+        public virtual double GetPerimeter() { return 0; }
+        public virtual double GetSquare() { return 0; }
         
     }
 }

@@ -18,17 +18,17 @@
         public Rectangle() : base()
         {
         }
-        public override void Print()
+        public override string ToString()
         {
-            Console.WriteLine($"{Title} со сторонами {Side_A}, {Side_B}. Периметр - {Perimeter}, площадь - {Square}");
+            return $"{Title} со сторонами {Side_A}, {Side_B}. Периметр - {GetPerimeter()}, площадь - {GetSquare()}";
         }
-        public override void GetPerimetr()
+        public override double GetPerimeter()
         {
-            Perimeter = Math.Round((Side_A + Side_B) * 2,2);
+            return Math.Round((Side_A + Side_B) * 2,2);
         }
-        public override void GetSquare()
+        public override double GetSquare()
         {
-            Square = Math.Round(Side_A*Side_B,2);
+            return Math.Round(Side_A*Side_B,2);
         }
         public static void Input(out Rectangle rectangle)
         {

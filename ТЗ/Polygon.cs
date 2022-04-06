@@ -15,26 +15,26 @@
         }
         public Polygon( ) : base()
         {
-
+           
         }
-
-        public override void Print()
+        public override string ToString()
         {
-            Console.Write($"{Title} с координатами: ");
+            string s = $"{Title} с координатами: ";
             if (Vertices != null)
             {
                 for (int i = 0; i < Vertices.Count; i++)
                 {
-                    if (i == Vertices.Count()-1)
-                        Console.Write($"({Vertices[i].X}, {Vertices[i].Y}). ");
+                    if (i == Vertices.Count() - 1)
+                        s += $"({Vertices[i].X}, {Vertices[i].Y}). ";
                     else
-                        Console.Write($"({Vertices[i].X}, {Vertices[i].Y}), ");
+                        s += $"({Vertices[i].X}, {Vertices[i].Y}), ";
                 }
 
             }
             else
-                Console.WriteLine("Вершины не были внесены");
-            Console.WriteLine($"Периметр: {Perimeter}, площадь - {Square}");
+                Console.WriteLine("Вершины не заданы");
+            s += $"Периметр: {GetPerimeter()}, площадь - {GetSquare()}";
+            return s.ToString();
         }
 
         public static void Input (out Polygon polygon)
@@ -68,13 +68,13 @@
             }
             polygon = new Polygon("Многоугольник", vertices);
         }
-        public override void GetPerimetr()
+        public override double GetPerimeter()
         {
-            Perimeter = Math.Round(Point.Perimeter_by_points(Vertices),2);
+            return Math.Round(Point.Perimeter_by_points(Vertices),2);
         }
-        public override void GetSquare()
+        public override double GetSquare()
         {
-            Square = Math.Round(Point.Square_by_points(Vertices),2);
+            return Math.Round(Point.Square_by_points(Vertices),2);
         }
     }
 }

@@ -15,17 +15,17 @@
         public Circle() : base()
         {
         }
-        public override void Print()
+        public override string ToString()
         {
-            Console.WriteLine($"{Title} со радиусом {Radius}. Периметр - {Perimeter}, площадь - {Square}");
+            return $"{Title} со радиусом {Radius}. Периметр - {GetPerimeter()}, площадь - {GetSquare()}";
         }
-        public override void GetPerimetr()
+        public override double GetPerimeter()
         {
-            Perimeter = Math.Round(2 * Math.PI * Radius,2);
+            return Math.Round(2 * Math.PI * Radius,2);
         }
-        public override void GetSquare()
+        public override double GetSquare()
         {
-            Square = Math.Round(Math.PI * Math.Pow(Radius,2),2);
+            return Math.Round(Math.PI * Math.Pow(Radius,2),2);
         }
         public static void Input(out Circle circle)
         {

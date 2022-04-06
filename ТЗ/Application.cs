@@ -12,147 +12,172 @@ namespace ТЗ
 
         public static async void  Start()
         {
-            List<Triangle> triangles = new List<Triangle>();
-            List<Quad> quads = new List<Quad>();
-            List<Rectangle> rectangles = new List<Rectangle>();
-            List<Circle> circles = new List<Circle>();
-            List<Polygon> polygons = new List<Polygon>();
-            List<Figure> figures = new List<Figure>();
-            bool flag = true;
+                List<Figure> figures = new List<Figure>();
+                bool flag = true;
             while (flag)
             {
-                Console.WriteLine("Выберите добавляемую фигуру: 1 - треугольник, 2 - квадрат, 3 - прямоугольник, 4 - окружность, 5 - многоугольник \n" +
-                    "Элементы управления: 0 - выход из программы, 6 - вывести список всех фигур и их параметров, 7 - очистить консоль\n" +
-                    "8 - считать с файла, 9 - сохранить в файл:");
-                int n = Convert.ToInt32(Console.ReadLine());
-                switch (n)
+                try
                 {
-                    case 1:
-                        Triangle triangle = new Triangle("Треугольник");
-                        Triangle.Input(out triangle);
-                        figures.Add(triangle);
-                        break;
+                    Console.WriteLine("Выберите добавляемую фигуру: 1 - треугольник, 2 - квадрат, 3 - прямоугольник, 4 - окружность, 5 - многоугольник \n" +
+                        "Элементы управления: 0 - выход из программы, 6 - вывести список всех фигур и их параметров, 7 - очистить консоль\n" +
+                        "8 - считать с файла, 9 - сохранить в файл:");
+                    int n = Convert.ToInt32(Console.ReadLine());
+                    switch (n)
+                    {
+                        case 1:
+                            Triangle triangle = Triangle.Input();
+                            figures.Add(triangle);
+                            break;
 
-                    case 2:
-                        Quad quad = new Quad("");
-                        Quad.Input(out quad);
-                        figures.Add(quad);
-                        break;
+                        case 2:
+                            Quad quad = new Quad("");
+                            Quad.Input(out quad);
+                            figures.Add(quad);
+                            break;
 
-                    case 3:
-                        Rectangle rectangle = new Rectangle("");
-                        Rectangle.Input(out rectangle);
-                        figures.Add(rectangle);
-                        break;
+                        case 3:
+                            Rectangle rectangle = new Rectangle("");
+                            Rectangle.Input(out rectangle);
+                            figures.Add(rectangle);
+                            break;
 
-                    case 4:
-                        Circle circle = new Circle("");
-                        Circle.Input(out circle);
-                        figures.Add(circle);
-                        break;
+                        case 4:
+                            Circle circle = new Circle("");
+                            Circle.Input(out circle);
+                            figures.Add(circle);
+                            break;
 
-                    case 5:
-                        Polygon polygon = new Polygon("");
-                        Polygon.Input(out polygon);
-                        figures.Add(polygon);
-                        break;
+                        case 5:
+                            Polygon polygon = new Polygon("");
+                            Polygon.Input(out polygon);
+                            figures.Add(polygon);
+                            break;
 
-                    case 0:
+                        case 0:
                             flag = false;
-                        break;
+                            break;
 
-                    case 8:
-                        Console.WriteLine("Введите путь к файлам с фигурами: ");
-                        str = Console.ReadLine();
-                        triangles = JsonSerializer.Deserialize<List<Triangle>>(File.ReadAllText(str + "\\Triangles.json"));
-                        quads = JsonSerializer.Deserialize<List<Quad>>(File.ReadAllText(str + "\\Quads.json"));
-                        rectangles = JsonSerializer.Deserialize<List<Rectangle>>(File.ReadAllText(str + "\\Rectangles.json"));
-                        circles = JsonSerializer.Deserialize<List<Circle>>(File.ReadAllText(str + "\\Circles.json"));
-                        polygons = JsonSerializer.Deserialize<List<Polygon>>(File.ReadAllText(str + "\\Polygons.json"));
-                        figures.AddRange(triangles);
-                        figures.AddRange(quads);
-                        figures.AddRange(rectangles);
-                        figures.AddRange(circles);
-                        figures.AddRange(polygons);
-                        break;
-                    
-                    case 9:
-                        try
-                        {
-                            var list = figures.Distinct().ToList();
-                            foreach (var fig in list)
+                        case 6:
+                            if (figures.Count() != 0)
                             {
-                                fig.GetPerimetr();
-                                fig.GetSquare();
-                                if (fig.Title == "Треугольник")
-                                    triangles.Add((Triangle)fig);
-                                if (fig.Title == "Квадрат")
-                                    quads.Add((Quad)fig);
-                                if (fig.Title == "Прямоугольник")
-                                    rectangles.Add((Rectangle)fig);
-                                if (fig.Title == "Окружность")
-                                    circles.Add((Circle)fig);
-                                if (fig.Title == "Многоугольник")
-                                    polygons.Add((Polygon)fig);
+                                for (int i = 0; i < figures.Count(); i++)
+                                {
+                                    Console.WriteLine(figures[i].ToString());
+                                }
                             }
-                            triangles = triangles.Distinct().ToList();
-                            quads = quads.Distinct().ToList();
-                            rectangles = rectangles.Distinct().ToList();
-                            circles = circles.Distinct().ToList();
-                            polygons = polygons.Distinct().ToList();
-                            using (FileStream fs = new FileStream(str + "\\Triangles.json", FileMode.OpenOrCreate))
+                            else
+                                Console.WriteLine("Вы еще не добавили ни одной фигуры. ");
+                            break;
+
+                        case 7:
+                            Console.Clear();
+                            break;
+
+                        case 8:
+                            Console.WriteLine("Введите путь к файлу: ");
+                            str = Console.ReadLine();
+                            using (BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open)))
                             {
-                                JsonSerializer.SerializeAsync(fs, triangles);
-
+                                while (reader.PeekChar() > -1)
+                                {
+                                    string title = reader.ReadString();
+                                    if (title == "Треугольник")
+                                    {
+                                        double a = reader.ReadDouble();
+                                        double b = reader.ReadDouble();
+                                        double c = reader.ReadDouble();
+                                        figures.Add(new Triangle(title, a, b, c));
+                                    }
+                                    else if (title == "Квадрат")
+                                    {
+                                        double a = reader.ReadDouble();
+                                        figures.Add(new Quad(title, a));
+                                    }
+                                    else if (title == "Прямоугольник")
+                                    {
+                                        double a = reader.ReadDouble();
+                                        double b = reader.ReadDouble();
+                                        figures.Add(new Rectangle(title, a, b));
+                                    }
+                                    else if (title == "Окружность")
+                                    {
+                                        double r = reader.ReadDouble();
+                                        figures.Add(new Circle(title, r));
+                                    }
+                                    else if (title == "Многоугольник")
+                                    {
+                                        int n1 = reader.ReadInt32();
+                                        List<Point> sides = new List<Point>();
+                                        for (int i = 0; i < n1; i++)
+                                        {
+                                            double X = reader.ReadDouble();
+                                            double Y = reader.ReadDouble();
+                                            sides.Add(new Point(X, Y));
+                                        }
+                                        figures.Add(new Polygon(title, sides));
+                                    }
+                                }
+                                Console.WriteLine("Фигуры добавлены из файла.");
                             }
-                            using (FileStream fs = new FileStream(str + "\\Quads.json", FileMode.OpenOrCreate))
+                            break;
+
+                        case 9:
+                            Console.WriteLine("Введите путь к файлу: ");
+                            str = Console.ReadLine();
+                            using (BinaryWriter writer = new BinaryWriter(File.Open(str, FileMode.OpenOrCreate)))
                             {
-                                JsonSerializer.SerializeAsync(fs, quads);
-
+                                foreach (Figure figure in figures)
+                                {
+                                    if (figure.Title == "Треугольник")
+                                    {
+                                        writer.Write(figure.Title);
+                                        writer.Write(((Triangle)figure).Side_A);
+                                        writer.Write(((Triangle)figure).Side_B);
+                                        writer.Write(((Triangle)figure).Side_C);
+                                    }
+                                    else if (figure.Title == "Квадрат")
+                                    {
+                                        writer.Write(figure.Title);
+                                        writer.Write(((Quad)figure).Side);
+                                    }
+                                    else if (figure.Title == "Прямоугольник")
+                                    {
+                                        writer.Write(figure.Title);
+                                        writer.Write(((Rectangle)figure).Side_A);
+                                        writer.Write(((Rectangle)figure).Side_B);
+                                    }
+                                    else if (figure.Title == "Окружность")
+                                    {
+                                        writer.Write(figure.Title);
+                                        writer.Write(((Circle)figure).Radius);
+                                    }
+                                    else if (figure.Title == "Многоугольник")
+                                    {
+                                        writer.Write(figure.Title);
+                                        writer.Write(((Polygon)figure).Vertices.Count());
+                                        foreach (Point side in ((Polygon)figure).Vertices)
+                                        {
+                                            writer.Write(side.X);
+                                            writer.Write(side.Y);
+                                        }
+                                    }
+                                }
+                                Console.WriteLine("Файл успешно сохранен.");
                             }
-                            using (FileStream fs = new FileStream(str + "\\Rectangles.json", FileMode.OpenOrCreate))
-                            {
-                                JsonSerializer.SerializeAsync(fs, rectangles);
+                            break;
 
-                            }
-                            using (FileStream fs = new FileStream(str + "\\Circles.json", FileMode.OpenOrCreate))
-                            {
-                                JsonSerializer.SerializeAsync(fs, circles);
-
-                            }
-                            using (FileStream fs = new FileStream(str + "\\Polygons.json", FileMode.OpenOrCreate))
-                            {
-                                JsonSerializer.SerializeAsync(fs, polygons);
-
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Ошибка. " + e.Message);
-                        }
-                break; 
-                    
-                    case 6:
-                        if (figures.Count() != 0)
-                        {
-                            for (int i = 0; i < figures.Count(); i++)
-                            {
-                                figures[i].Print();
-                            }
-                        }
-                        else
-                            Console.WriteLine("Вы еще не добавили ни одной фигуры. ");
-                        break;
-
-                    case 7:
-                        Console.Clear();
-                        break;
-
-                    default:
-                        Console.WriteLine("Команды с таким индексом не существует. Выберите команду заново.");
-                        break;
+                        default:
+                            Console.WriteLine("Команды с таким индексом не существует. Выберите команду заново.");
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Ошибка" + ex.Message);
                 }
             }
+        
+            
         }
     }
 }

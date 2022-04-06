@@ -15,18 +15,18 @@
         public Quad() : base()
         {
         }
+        public override string ToString()
+        {
+            return $"{Title} со сторонами {Side}. Периметр - {GetPerimeter()}, площадь - {GetSquare()}";
+        }
 
-        public override void Print()
+        public override double GetPerimeter()
         {
-            Console.WriteLine($"{Title} со сторонами {Side}. Периметр - {Perimeter}, площадь - {Square}");
+            return Math.Round(Side * 4,2);
         }
-        public override void GetPerimetr()
+        public override double GetSquare()
         {
-            Perimeter = Math.Round(Side * 4,2);
-        }
-        public override void GetSquare()
-        {
-            Square = Math.Round(Math.Pow(Side,2), 2);
+            return Math.Round(Math.Pow(Side,2), 2);
         }
         public static void Input(out Quad quad)
         {
