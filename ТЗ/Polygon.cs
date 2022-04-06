@@ -13,6 +13,10 @@
         {
 
         }
+        public Polygon( ) : base()
+        {
+
+        }
 
         public override void Print()
         {

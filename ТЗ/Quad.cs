@@ -12,6 +12,9 @@
         public Quad(string title) : base(title)
         {
         }
+        public Quad() : base()
+        {
+        }
 
         public override void Print()
         {

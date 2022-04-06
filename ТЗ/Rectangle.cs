@@ -15,6 +15,9 @@
         {
         }
 
+        public Rectangle() : base()
+        {
+        }
         public override void Print()
         {
             Console.WriteLine($"{Title} со сторонами {Side_A}, {Side_B}. Периметр - {Perimeter}, площадь - {Square}");

@@ -12,7 +12,9 @@
         public Circle(string title): base(title)
         {
         }
-
+        public Circle() : base()
+        {
+        }
         public override void Print()
         {
             Console.WriteLine($"{Title} со радиусом {Radius}. Периметр - {Perimeter}, площадь - {Square}");

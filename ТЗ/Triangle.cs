@@ -18,6 +18,10 @@
         {
 
         }
+        public Triangle() : base()
+        {
+
+        }
 
         public override void Print()
         {
