@@ -28,24 +28,20 @@
         {
             return Math.Round(Math.Pow(Side,2), 2);
         }
-        public static void Input(out Quad quad)
+        public static Quad Input()
         {
             
             bool flag = true;
-            Quad quad1 = new Quad("");
-            while (flag)
+            Console.Write("Введите длину сторон квадрата: ");
+            double a = Convert.ToDouble(Console.ReadLine());
+            if (a > 0)
             {
-                Console.Write("Введите длину сторон квадрата: ");
-                double a = Convert.ToDouble(Console.ReadLine());
-                if (a > 0)
-                {
-                    quad1 = new Quad("Квадрат", a);
-                    flag = false;
-                }
-                else
-                    Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
+                flag = false;
             }
-            quad = quad1;
+            else
+                Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
+
+            return new Quad("Квадрат", a);
         }
     }
 }

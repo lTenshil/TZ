@@ -27,7 +27,7 @@
         {
             return Math.Round(Math.PI * Math.Pow(Radius,2),2);
         }
-        public static void Input(out Circle circle)
+        public static Circle Input()
         {
             bool flag = true;
             Circle circle1 = new Circle("");
@@ -43,7 +43,7 @@
                 else
                     Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
             }
-            circle = circle1;
+            return circle1;
         }
     }
 }

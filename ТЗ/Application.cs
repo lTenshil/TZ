@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace ТЗ
 {
     internal class Application
     {
-        static string str;
-
-        public static async void  Start()
+        public static  void  Start()
         {
-                List<Figure> figures = new List<Figure>();
-                bool flag = true;
+            List<Figure> figures = new List<Figure>();
+            bool flag = true;
             while (flag)
             {
                 try
@@ -30,26 +25,23 @@ namespace ТЗ
                             break;
 
                         case 2:
-                            Quad quad = new Quad("");
-                            Quad.Input(out quad);
+                            Quad quad = Quad.Input();
                             figures.Add(quad);
                             break;
 
                         case 3:
                             Rectangle rectangle = new Rectangle("");
-                            Rectangle.Input(out rectangle);
+                            Rectangle.Input();
                             figures.Add(rectangle);
                             break;
 
                         case 4:
-                            Circle circle = new Circle("");
-                            Circle.Input(out circle);
+                            Circle circle = Circle.Input();
                             figures.Add(circle);
                             break;
 
                         case 5:
-                            Polygon polygon = new Polygon("");
-                            Polygon.Input(out polygon);
+                            Polygon polygon = Polygon.Input();
                             figures.Add(polygon);
                             break;
 
@@ -60,9 +52,9 @@ namespace ТЗ
                         case 6:
                             if (figures.Count() != 0)
                             {
-                                for (int i = 0; i < figures.Count(); i++)
-                                {
-                                    Console.WriteLine(figures[i].ToString());
+                                foreach (var figure in figures)
+                                { 
+                                    Console.WriteLine(figure.ToString());
                                 }
                             }
                             else
@@ -75,7 +67,7 @@ namespace ТЗ
 
                         case 8:
                             Console.WriteLine("Введите путь к файлу: ");
-                            str = Console.ReadLine();
+                            string str = Console.ReadLine();
                             using (BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open)))
                             {
                                 while (reader.PeekChar() > -1)
@@ -123,8 +115,8 @@ namespace ТЗ
 
                         case 9:
                             Console.WriteLine("Введите путь к файлу: ");
-                            str = Console.ReadLine();
-                            using (BinaryWriter writer = new BinaryWriter(File.Open(str, FileMode.OpenOrCreate)))
+                            string path = Console.ReadLine();
+                            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.OpenOrCreate)))
                             {
                                 foreach (Figure figure in figures)
                                 {

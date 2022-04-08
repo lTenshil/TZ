@@ -30,7 +30,7 @@
         {
             return Math.Round(Side_A*Side_B,2);
         }
-        public static void Input(out Rectangle rectangle)
+        public static Rectangle Input()
         {
             bool flag = true;
             Rectangle rectangle1 = new Rectangle("");
@@ -43,12 +43,12 @@
                 if (a > 0 && b>0 && a!=b)
                 {
                     rectangle1 = new Rectangle("Прямоугольник", a,b);
-                    flag = false;
+                    
                 }
                 else
                     Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
             }
-            rectangle = rectangle1;
+            return rectangle1;
         }
     }
 }
