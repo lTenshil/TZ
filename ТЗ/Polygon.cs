@@ -12,6 +12,22 @@
         {
            
         }
+        public static Polygon Read(FileStream file, long position)
+        {
+            var polygon = new Polygon();
+            BinaryReader reader = new BinaryReader(file);
+            reader.BaseStream.Position = position;
+            int n1 = reader.ReadInt32();
+            List<Point> sides = new List<Point>();
+            for (int i = 0; i < n1; i++)
+            {
+                double X = reader.ReadDouble();
+                double Y = reader.ReadDouble();
+                sides.Add(new Point(X, Y));
+            }
+            polygon = new Polygon("Треугольник", sides);
+            return polygon;
+        }
         public override string ToString()
         {
             string s = $"{Title} с координатами: ";

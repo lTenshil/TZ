@@ -7,7 +7,8 @@
             Console.WriteLine("\nВведите путь к файлу: ");
             string str = Console.ReadLine();
             List<Figure> figures = new List<Figure>();
-            using (BinaryReader reader = new BinaryReader(File.Open(@str, FileMode.Open)))
+            using (FileStream file = new FileStream(@str, FileMode.Open))
+            using (BinaryReader reader = new BinaryReader(file))
             {
                 while (reader.PeekChar() > -1)
                 {
@@ -15,38 +16,24 @@
                     switch (title)
                     {
                         case "Треугольник":
-                            double a = reader.ReadDouble();
-                            double b = reader.ReadDouble();
-                            double c = reader.ReadDouble();
-                            figures.Add(new Triangle(title, a, b, c));
+                            figures.Add(Triangle.Read(file, reader.BaseStream.Position));
                             break;
 
                         case "Квадрат":
-                            double d = reader.ReadDouble();
-                            figures.Add(new Quad(title, d));
+                            figures.Add(Quad.Read(file, reader.BaseStream.Position));
                             break;
 
                         case "Прямоугольник":
-                            double e = reader.ReadDouble();
-                            double f = reader.ReadDouble();
-                            figures.Add(new Rectangle(title, e,f));
+                            figures.Add(Rectangle.Read(file, reader.BaseStream.Position));
                             break;
 
                         case "Окружность":
-                            double g = reader.ReadDouble();
-                            figures.Add(new Circle(title, g));
+                            figures.Add(Circle.Read(file, reader.BaseStream.Position));
                             break;
 
                         case "Многоугольник":
-                            int n1 = reader.ReadInt32();
-                            List<Point> sides = new List<Point>();
-                            for (int i = 0; i < n1; i++)
-                            {
-                                double X = reader.ReadDouble();
-                                double Y = reader.ReadDouble();
-                                sides.Add(new Point(X, Y));
-                            }
-                            figures.Add(new Polygon(title, sides));
+                            
+                            figures.Add(Polygon.Read(file, reader.BaseStream.Position));
                             break;
                     }
                 }

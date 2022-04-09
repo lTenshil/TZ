@@ -36,6 +36,17 @@
             var p = 0.5 * GetPerimeter();
             return Math.Round(Math.Sqrt((p * (p - Side_A) * (p - Side_B) - (p - Side_C))),2);
         }
+        public static Triangle Read(FileStream file,long position)
+        {
+            var triangle = new Triangle();
+            BinaryReader reader = new BinaryReader(file);
+            reader.BaseStream.Position = position;
+            var side_A = reader.ReadDouble();
+            var side_B = reader.ReadDouble();
+            var side_C = reader.ReadDouble();
+            triangle = new Triangle("Треугольник", side_A, side_B, side_C);
+            return triangle;
+        }
         public static Triangle Input()
         {
                 bool flag = true;

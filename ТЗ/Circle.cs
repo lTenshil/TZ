@@ -27,7 +27,16 @@
         {
             return Math.Round(Math.PI * Math.Pow(Radius,2),2);
         }
-        
+        public static Circle Read(FileStream file, long position)
+        {
+            var circle = new Circle();
+            BinaryReader reader = new BinaryReader(file);
+            reader.BaseStream.Position = position;
+            var radius = reader.ReadDouble();
+            circle = new Circle("Треугольник", radius);
+            return circle;
+        }
+
         public static Circle Input()
         {
             bool flag = true;

@@ -28,10 +28,17 @@
         {
             return Math.Round(Math.Pow(Side,2), 2);
         }
-        
+        public static Quad Read(FileStream file, long position)
+        {
+            var quad = new Quad();
+            BinaryReader reader = new BinaryReader(file);
+            reader.BaseStream.Position = position;
+            var side = reader.ReadDouble();
+            quad = new Quad("Квадрат", side);
+            return quad;
+        }
         public static Quad Input()
         {
-            
             bool flag = true;
             Console.Write("\nВведите длину сторон квадрата: ");
             double a = double.Parse(Console.ReadLine());
