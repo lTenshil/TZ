@@ -28,6 +28,16 @@
             polygon = new Polygon("Треугольник", sides);
             return polygon;
         }
+        public static void Write(FileStream file, Figure figure)
+        {
+            BinaryWriter writer = new BinaryWriter(file);
+            writer.Write(((Polygon)figure).Vertices.Count());
+            foreach (Point side in ((Polygon)figure).Vertices)
+            {
+                writer.Write(side.X);
+                writer.Write(side.Y);
+            }
+        }
         public override string ToString()
         {
             string s = $"{Title} с координатами: ";

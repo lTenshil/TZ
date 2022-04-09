@@ -36,7 +36,12 @@
             rectangle = new Rectangle("Прямоугольник", side_A, side_B);
             return rectangle;
         }
-
+        public static void Write(FileStream file, Figure figure)
+        {
+            BinaryWriter writer = new BinaryWriter(file);
+            writer.Write(((Rectangle)figure).Side_A);
+            writer.Write(((Rectangle)figure).Side_A);
+        }
         public static Rectangle Input()
         {
             bool flag = true;

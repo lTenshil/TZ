@@ -47,7 +47,8 @@
             {
                 Console.WriteLine("\nВведите путь к файлу: ");
                 string path = Console.ReadLine();
-                using (BinaryWriter writer = new BinaryWriter(File.Open(@path, FileMode.OpenOrCreate)))
+                using (FileStream file = new FileStream(@path, FileMode.Open))
+                using (BinaryWriter writer = new BinaryWriter(file))
                 {
                     foreach (Figure figure in figures)
                     {
@@ -55,31 +56,23 @@
                         switch (figure.Title)
                         {
                             case "Треугольник":
-                                writer.Write(((Triangle)figure).Side_A);
-                                writer.Write(((Triangle)figure).Side_B);
-                                writer.Write(((Triangle)figure).Side_C);
+                                Triangle.Write(file, figure);
                                 break;
 
                             case "Квадрат":
-                                writer.Write(((Quad)figure).Side);
+                                Quad.Write(file, figure);
                                 break;
 
                             case "Прямоугольник":
-                                writer.Write(((Rectangle)figure).Side_A);
-                                writer.Write(((Rectangle)figure).Side_B);
+                                Rectangle.Write(file, figure);
                                 break;
 
                             case "Окружность":
-                                writer.Write(((Circle)figure).Radius);
+                                Circle.Write(file, figure);
                                 break;
 
                             case "Многоугольник":
-                                writer.Write(((Polygon)figure).Vertices.Count());
-                                foreach (Point side in ((Polygon)figure).Vertices)
-                                {
-                                    writer.Write(side.X);
-                                    writer.Write(side.Y);
-                                }
+                                Polygon.Write(file, figure);
                                 break;
                         }
                     }

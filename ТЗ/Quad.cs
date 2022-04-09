@@ -37,6 +37,11 @@
             quad = new Quad("Квадрат", side);
             return quad;
         }
+        public static void Write(FileStream file, Figure figure)
+        {
+            BinaryWriter writer = new BinaryWriter(file);
+            writer.Write(((Quad)figure).Side);
+        }
         public static Quad Input()
         {
             bool flag = true;

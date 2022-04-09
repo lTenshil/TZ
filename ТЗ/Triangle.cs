@@ -47,6 +47,13 @@
             triangle = new Triangle("Треугольник", side_A, side_B, side_C);
             return triangle;
         }
+        public static void Write(FileStream file, Figure figure)
+        {
+            BinaryWriter writer = new BinaryWriter(file);
+            writer.Write(((Triangle)figure).Side_A);
+            writer.Write(((Triangle)figure).Side_B);
+            writer.Write(((Triangle)figure).Side_C);
+        }
         public static Triangle Input()
         {
                 bool flag = true;

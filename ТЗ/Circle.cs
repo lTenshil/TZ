@@ -36,7 +36,11 @@
             circle = new Circle("Треугольник", radius);
             return circle;
         }
-
+        public static void Write(FileStream file, Figure figure)
+        {
+            BinaryWriter writer = new BinaryWriter(file);
+            writer.Write(((Circle)figure).Radius);
+        }
         public static Circle Input()
         {
             bool flag = true;
