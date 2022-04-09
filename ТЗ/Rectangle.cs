@@ -11,10 +11,6 @@
             Side_B = side_B;
         }
 
-        public Rectangle(string title): base(title)
-        {
-        }
-
         public Rectangle() : base()
         {
         }
@@ -30,20 +26,21 @@
         {
             return Math.Round(Side_A*Side_B,2);
         }
+        
         public static Rectangle Input()
         {
             bool flag = true;
-            Rectangle rectangle1 = new Rectangle("");
+            Rectangle rectangle1 = new Rectangle();
             while (flag)
             {
-                Console.Write("Введите сторону A: ");
-                double a = Convert.ToDouble(Console.ReadLine());
+                Console.Write("\nВведите сторону A: ");
+                double a = double.Parse(Console.ReadLine());
                 Console.Write("Введите сторону B: ");
-                double b = Convert.ToDouble(Console.ReadLine());
+                double b = double.Parse(Console.ReadLine());
                 if (a > 0 && b>0 && a!=b)
                 {
                     rectangle1 = new Rectangle("Прямоугольник", a,b);
-                    
+                    flag = false;
                 }
                 else
                     Console.WriteLine("Внесены некорректные данные, внесите данные заново.");

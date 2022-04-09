@@ -8,11 +8,6 @@
         {
             Vertices = vertices;
         }
-
-        public Polygon(string title): base(title)
-        {
-
-        }
         public Polygon( ) : base()
         {
            
@@ -45,16 +40,16 @@
             {
                 try
                 {
-                    Console.Write("Введите количество вершин многоугольника: ");
-                    int n = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("\nВведите количество вершин многоугольника: ");
+                    int n = int.Parse(Console.ReadLine());
                     if (n > 3)
                     {
                         for (int i = 0; i<n; i++)
                         {
                             Console.Write($"Введите координату X вершины {i + 1}: ");
-                            double x = Convert.ToDouble(Console.ReadLine());
+                            double x = double.Parse(Console.ReadLine());
                             Console.Write($"Введите координату Y вершины {i + 1}: ");
-                            double y = Convert.ToDouble(Console.ReadLine());
+                            double y = double.Parse(Console.ReadLine());
                             var obj = new Point(x, y);
                             vertices.Add(obj);
                         }

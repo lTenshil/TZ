@@ -28,12 +28,13 @@
         {
             return Math.Round(Math.Pow(Side,2), 2);
         }
+        
         public static Quad Input()
         {
             
             bool flag = true;
-            Console.Write("Введите длину сторон квадрата: ");
-            double a = Convert.ToDouble(Console.ReadLine());
+            Console.Write("\nВведите длину сторон квадрата: ");
+            double a = double.Parse(Console.ReadLine());
             if (a > 0)
             {
                 flag = false;

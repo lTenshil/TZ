@@ -27,14 +27,15 @@
         {
             return Math.Round(Math.PI * Math.Pow(Radius,2),2);
         }
+        
         public static Circle Input()
         {
             bool flag = true;
             Circle circle1 = new Circle("");
             while (flag)
             {
-                Console.Write("Введите радиус: ");
-                double a = Convert.ToDouble(Console.ReadLine());
+                Console.Write("\nВведите радиус: ");
+                double a = double.Parse(Console.ReadLine());
                 if (a > 0)
                 {
                     circle1 = new Circle("Окружность", a);

@@ -36,19 +36,18 @@
             var p = 0.5 * GetPerimeter();
             return Math.Round(Math.Sqrt((p * (p - Side_A) * (p - Side_B) - (p - Side_C))),2);
         }
-
         public static Triangle Input()
         {
                 bool flag = true;
-            Triangle triangle1 = new Triangle("Треугольник");
+            Triangle triangle1 = new Triangle();
                 while (flag)
                 {
-                    Console.Write("Введите сторону A: ");
-                    double a = Convert.ToDouble(Console.ReadLine());
+                    Console.Write("\nВведите сторону A: ");
+                    double a = double.Parse(Console.ReadLine());
                     Console.Write("Введите сторону B: ");
-                    double b = Convert.ToDouble(Console.ReadLine());
+                    double b = double.Parse(Console.ReadLine());
                     Console.Write("Введите сторону C: ");
-                    double c = Convert.ToDouble(Console.ReadLine());
+                    double c = double.Parse(Console.ReadLine());
                     if (a > 0 && b > 0 && c > 0 && a + b > c && a + c > b && b + c > a)
                     {
                         triangle1 = new Triangle("Треугольник", a, b, c);
@@ -59,5 +58,6 @@
                 }
             return triangle1;
         }
+
     }
 }
