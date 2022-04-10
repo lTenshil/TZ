@@ -44,7 +44,6 @@
         /// </returns>
         public static Triangle Read(FileStream file,long position)
         {
-            var triangle = new Triangle();
             BinaryReader reader = new BinaryReader(file);
             reader.BaseStream.Position = position;
             var side_A = reader.ReadDouble();

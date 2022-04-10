@@ -37,13 +37,11 @@
         /// </returns>
         public static Rectangle Read(FileStream file, long position)
         {
-            var rectangle = new Rectangle();
             BinaryReader reader = new BinaryReader(file);
             reader.BaseStream.Position = position;
             var side_A = reader.ReadDouble();
             var side_B = reader.ReadDouble();
-            rectangle = new Rectangle("Прямоугольник", side_A, side_B);
-            return rectangle;
+            return new Rectangle("Прямоугольник", side_A, side_B); 
         }
         /// <summary>
         /// Запись объекта в бинарный файл

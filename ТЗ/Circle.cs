@@ -29,12 +29,10 @@
         /// </returns>
         public static Circle Read(FileStream file, long position)
         {
-            var circle = new Circle();
             BinaryReader reader = new BinaryReader(file);
             reader.BaseStream.Position = position;
             var radius = reader.ReadDouble();
-            circle = new Circle("Окружность", radius);
-            return circle;
+            return  new Circle("Окружность", radius);
         }
         /// <summary>
         /// Запись данных в бинарный файл

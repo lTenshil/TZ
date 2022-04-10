@@ -22,7 +22,6 @@
         /// </returns>
         public static Polygon Read(FileStream file, long position)
         {
-            var polygon = new Polygon();
             BinaryReader reader = new BinaryReader(file);
             reader.BaseStream.Position = position;
             int n1 = reader.ReadInt32();

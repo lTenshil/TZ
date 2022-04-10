@@ -31,12 +31,10 @@
         /// </returns>
         public static Quad Read(FileStream file, long position)
         {
-            var quad = new Quad();
             BinaryReader reader = new BinaryReader(file);
             reader.BaseStream.Position = position;
             var side = reader.ReadDouble();
-            quad = new Quad("Квадрат", side);
-            return quad;
+            return  new Quad("Квадрат", side);
         }
         /// <summary>
         /// Запись данных в бинарный файл
