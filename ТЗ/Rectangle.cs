@@ -10,22 +10,31 @@
             Side_A = side_A;
             Side_B = side_B;
         }
-
-        public Rectangle() : base()
-        {
-        }
+        public Rectangle() : base() { }
         public override string ToString()
         {
-            return $"{Title} со сторонами {Side_A}, {Side_B}. Периметр - {GetPerimeter()}, площадь - {GetSquare()}";
+            return $"{Title} со сторонами {Side_A}, {Side_B}. Периметр - {GetPerimeter()}, площадь - {GetArea()}";
         }
         public override double GetPerimeter()
         {
             return Math.Round((Side_A + Side_B) * 2,2);
         }
-        public override double GetSquare()
+        public override double GetArea()
         {
             return Math.Round(Side_A*Side_B,2);
         }
+        /// <summary>
+        /// Чтение данных из бинарного файла
+        /// </summary>
+        /// <param name="file">
+        /// Объект класса FileStream, содержащий путь к файлу и его режим открытия
+        /// </param>
+        /// <param name="position">
+        /// Позиция в файле, начиная с которой необходимо начать чтение
+        /// </param>
+        /// <returns>
+        /// Возвращает считанный объект класса Rectangle
+        /// </returns>
         public static Rectangle Read(FileStream file, long position)
         {
             var rectangle = new Rectangle();
@@ -36,6 +45,15 @@
             rectangle = new Rectangle("Прямоугольник", side_A, side_B);
             return rectangle;
         }
+        /// <summary>
+        /// Запись объекта в бинарный файл
+        /// </summary>
+        /// <param name="file">
+        /// Объект класса FileStream, содержащий путь к файлу для записи и режим доступа к файлу
+        /// </param>
+        /// <param name="figure">
+        /// Объект класса Figure, который необходимо записать в бинарный файл
+        /// </param>
         public static void Write(FileStream file, Figure figure)
         {
             BinaryWriter writer = new BinaryWriter(file);

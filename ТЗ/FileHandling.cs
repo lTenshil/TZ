@@ -2,6 +2,7 @@
 {
     internal class FileHandling
     {
+        // Чтение данных из бинарного файла
         public static List<Figure> ReadFile ()
         {
             Console.WriteLine("\nВведите путь к файлу: ");
@@ -41,6 +42,7 @@
             }
             return figures;
         }
+        // Запись данных в бинарный файл
         public static void WriteFile(List<Figure> figures)
         {
             if (figures.Count() > 0)

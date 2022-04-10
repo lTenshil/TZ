@@ -2,16 +2,24 @@
 {
     internal class Polygon: Figure
     {
-        public List<Point> ? Vertices { get; set; }
-
+        public List<Point> ? Vertices { get; set; } 
         public Polygon(string title,List<Point>? vertices): base(title)
         {
             Vertices = vertices;
         }
-        public Polygon( ) : base()
-        {
-           
-        }
+        public Polygon( ) : base() { }
+        /// <summary>
+        /// Чтение данных из бинарного файла
+        /// </summary>
+        /// <param name="file">
+        /// Объект класса FileStream, содержащий путь к файлу и его режим открытия
+        /// </param>
+        /// <param name="position">
+        /// Позиция в файле, начиная с которой необходимо начать чтение
+        /// </param>
+        /// <returns>
+        /// Возвращает считанный объект класса Polygon
+        /// </returns>
         public static Polygon Read(FileStream file, long position)
         {
             var polygon = new Polygon();
@@ -25,9 +33,17 @@
                 double Y = reader.ReadDouble();
                 sides.Add(new Point(X, Y));
             }
-            polygon = new Polygon("Треугольник", sides);
-            return polygon;
+            return new Polygon("Многоугольник", sides);
         }
+        /// <summary>
+        /// Записыь данных в бинарный файл
+        /// </summary>
+        /// <param name="file">
+        /// Объект класса FileStream, содержащий путь к файлу для записи и режим доступа к файлу
+        /// </param>
+        /// <param name="figure">
+        /// Объект типа Figure, который необходимо записать в файл
+        /// </param>
         public static void Write(FileStream file, Figure figure)
         {
             BinaryWriter writer = new BinaryWriter(file);
@@ -54,7 +70,7 @@
             }
             else
                 Console.WriteLine("Вершины не заданы");
-            s += $"Периметр: {GetPerimeter()}, площадь - {GetSquare()}";
+            s += $"Периметр: {GetPerimeter()}, площадь - {GetArea()}";
             return s.ToString();
         }
 
@@ -89,6 +105,13 @@
             }
             return new Polygon("Многоугольник", vertices);
         }
+        /// <summary>
+        /// Получение периметра многоугольника по координатам вершин
+        /// </summary>
+        /// <param name="points">
+        /// Координаты вершин многоугольника
+        /// </param>
+        /// <returns></returns>
         public double Perimeter_by_points(List<Point> points)
         {
             double p = 0;
@@ -102,8 +125,14 @@
             }
             return p;
         }
-
-        public double Square_by_points(List<Point> points)
+        /// <summary>
+        /// Получение площади многоугольника по координатам вершин
+        /// </summary>
+        /// <param name="points">
+        /// Координаты вершин многоугольника
+        /// </param>
+        /// <returns></returns>
+        public double Area_by_points(List<Point> points)
         {
             double s = 0;
             if (points.Count > 0)
@@ -121,9 +150,9 @@
         {
             return Math.Round(Perimeter_by_points(Vertices),2);
         }
-        public override double GetSquare()
+        public override double GetArea()
         {
-            return Math.Round(Square_by_points(Vertices),2);
+            return Math.Round(Area_by_points(Vertices),2);
         }
     }
 }

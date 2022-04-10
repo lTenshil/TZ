@@ -5,7 +5,8 @@ namespace ТЗ
 {
     internal class Application
     {
-        public static  void  Start()
+        // Запуск приложения
+        public static void Start()
         {
             List<Figure> figures = new List<Figure>();
             bool flag = true;
