@@ -1,13 +1,13 @@
 ﻿namespace ТЗ
 {
-    internal class FileHandling
+    public class FileHandling
     {
         // Чтение данных из бинарного файла
-        public static List<Figure> ReadFile ()
+        public static List<IFigure> ReadFile ()
         {
             Console.WriteLine("\nВведите путь к файлу: ");
             string str = Console.ReadLine();
-            List<Figure> figures = new List<Figure>();
+            List<IFigure> figures = new List<IFigure>();
             using (FileStream file = new FileStream(@str, FileMode.Open))
             using (BinaryReader reader = new BinaryReader(file))
             {
@@ -17,24 +17,24 @@
                     switch (title)
                     {
                         case "Треугольник":
-                            figures.Add(Triangle.Read(file, reader.BaseStream.Position));
+                            figures.Add(Triangle.Read(reader));
                             break;
 
                         case "Квадрат":
-                            figures.Add(Quad.Read(file, reader.BaseStream.Position));
+                            figures.Add(Quad.Read(reader));
                             break;
 
                         case "Прямоугольник":
-                            figures.Add(Rectangle.Read(file, reader.BaseStream.Position));
+                            figures.Add(Rectangle.Read(reader));
                             break;
 
                         case "Окружность":
-                            figures.Add(Circle.Read(file, reader.BaseStream.Position));
+                            figures.Add(Circle.Read(reader));
                             break;
 
                         case "Многоугольник":
                             
-                            figures.Add(Polygon.Read(file, reader.BaseStream.Position));
+                            figures.Add(Polygon.Read(reader));
                             break;
                     }
                 }
@@ -43,38 +43,38 @@
             return figures;
         }
         // Запись данных в бинарный файл
-        public static void WriteFile(List<Figure> figures)
+        public static void WriteFile(List<IFigure> figures)
         {
             if (figures.Count() > 0)
             {
                 Console.WriteLine("\nВведите путь к файлу: ");
                 string path = Console.ReadLine();
-                using (FileStream file = new FileStream(@path, FileMode.Open))
+                using (FileStream file = new FileStream(@path, FileMode.OpenOrCreate))
                 using (BinaryWriter writer = new BinaryWriter(file))
                 {
-                    foreach (Figure figure in figures)
+                    foreach (IFigure figure in figures)
                     {
                         writer.Write(figure.Title);
                         switch (figure.Title)
                         {
                             case "Треугольник":
-                                Triangle.Write(file, figure);
+                                figure.Write(writer);
                                 break;
 
                             case "Квадрат":
-                                Quad.Write(file, figure);
+                                figure.Write(writer);
                                 break;
 
                             case "Прямоугольник":
-                                Rectangle.Write(file, figure);
+                                figure.Write(writer);
                                 break;
 
                             case "Окружность":
-                                Circle.Write(file, figure);
+                                figure.Write(writer);
                                 break;
 
                             case "Многоугольник":
-                                Polygon.Write(file, figure);
+                                figure.Write(writer);
                                 break;
                         }
                     }

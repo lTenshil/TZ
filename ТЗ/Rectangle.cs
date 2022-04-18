@@ -1,62 +1,53 @@
 ﻿namespace ТЗ
 {
-    internal class Rectangle: Figure
+    public class Rectangle: IFigure
     {
-        public double Side_A { get; set; }
-        public double Side_B { get; set; }
+        public double A { get; set; }
+        public double B { get; set; }
+        public string Title { get; set; } = "Прямоугольник";
 
-        public Rectangle(string title,double side_A, double side_B): base(title)
+        public Rectangle(double a, double b)
         {
-            Side_A = side_A;
-            Side_B = side_B;
+            A = a;
+            B = b;
         }
         public Rectangle() : base() { }
         public override string ToString()
         {
-            return $"{Title} со сторонами {Side_A}, {Side_B}. Периметр - {GetPerimeter()}, площадь - {GetArea()}";
+            return $"{Title} со сторонами {A}, {B}. Периметр - {P()}, площадь - {S()}";
         }
-        public override double GetPerimeter()
+        public double P()
         {
-            return Math.Round((Side_A + Side_B) * 2,2);
+            return (A + B) * 2;
         }
-        public override double GetArea()
+        public double S()
         {
-            return Math.Round(Side_A*Side_B,2);
+            return A*B;
         }
         /// <summary>
         /// Чтение данных из бинарного файла
-        /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу и его режим открытия
-        /// </param>
-        /// <param name="position">
-        /// Позиция в файле, начиная с которой необходимо начать чтение
+        /// <param name="reader"> 
+        /// Объект класса BinaryReader, содержащий путь к файлу и методы для чтения данных из файла
         /// </param>
         /// <returns>
         /// Возвращает считанный объект класса Rectangle
         /// </returns>
-        public static Rectangle Read(FileStream file, long position)
+        public static Rectangle Read(BinaryReader reader)
         {
-            BinaryReader reader = new BinaryReader(file);
-            reader.BaseStream.Position = position;
-            var side_A = reader.ReadDouble();
-            var side_B = reader.ReadDouble();
-            return new Rectangle("Прямоугольник", side_A, side_B); 
+            var A = reader.ReadDouble();
+            var B = reader.ReadDouble();
+            return new Rectangle(A, B); 
         }
         /// <summary>
         /// Запись объекта в бинарный файл
         /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу для записи и режим доступа к файлу
+        /// <param name="writer">
+        /// Объект класса BinaryWriter, содержащий путь к файлу и методы для записи данных в файл
         /// </param>
-        /// <param name="figure">
-        /// Объект класса Figure, который необходимо записать в бинарный файл
-        /// </param>
-        public static void Write(FileStream file, Figure figure)
+        public void Write(BinaryWriter writer)
         {
-            BinaryWriter writer = new BinaryWriter(file);
-            writer.Write(((Rectangle)figure).Side_A);
-            writer.Write(((Rectangle)figure).Side_A);
+            writer.Write(this.A);
+            writer.Write(this.B);
         }
         public static Rectangle Input()
         {
@@ -70,7 +61,7 @@
                 double b = double.Parse(Console.ReadLine());
                 if (a > 0 && b>0 && a!=b)
                 {
-                    rectangle1 = new Rectangle("Прямоугольник", a,b);
+                    rectangle1 = new Rectangle(a,b);
                     flag = false;
                 }
                 else

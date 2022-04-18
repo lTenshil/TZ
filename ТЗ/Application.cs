@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace ТЗ
 {
-    internal class Application
+    public class Application
     {
         // Запуск приложения
         public static void Start()
         {
-            List<Figure> figures = new List<Figure>();
+            List<IFigure> figures = new List<IFigure>();
             bool flag = true;
             while (flag)
             {
@@ -60,7 +60,7 @@ namespace ТЗ
                 }
             }    
         }
-        public static void Output_figures (List<Figure> figures)
+        public static void Output_figures (List<IFigure> figures)
         {
             Console.WriteLine();
             if (figures.Count() != 0)

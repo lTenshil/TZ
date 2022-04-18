@@ -1,54 +1,42 @@
 ﻿namespace ТЗ
 {
-    internal class Quad: Figure
+    public class Quad: IFigure
     {
-        public double Side { get; set; }
-        public Quad(string title,double side) : base(title) { Side = side; }
-        public Quad() : base() { }
+        public double A { get; set; }
+        public string Title { get; set; } = "Квадрат";
+
+        public Quad(double a) => A = a;
+        public Quad() { }
         public override string ToString()
         {
-            return $"{Title} со сторонами {Side}. Периметр - {GetPerimeter()}, площадь - {GetArea()}";
+            return $"{Title} со сторонами {A}. Периметр - {P()}, площадь - {S()}";
         }
-        public override double GetPerimeter()
-        {
-            return Math.Round(Side * 4,2);
-        }
-        public override double GetArea()
-        {
-            return Math.Round(Math.Pow(Side,2), 2);
-        }
+        public  double P()
+        { return A * 4; }
+        public  double S() { return Math.Pow(A,2); }
         /// <summary>
         /// Чтение данных из бинарного файла
         /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу и его режим открытия
-        /// </param>
-        /// <param name="position">
-        /// Позиция в файле, с которой начинается чтение
+        /// <param name="reader"> 
+        /// Объект класса BinaryReader, содержащий путь к файлу и методы для чтения данных из файла
         /// </param>
         /// <returns>
         /// Возвращает считанный объект класса Quad
         /// </returns>
-        public static Quad Read(FileStream file, long position)
+        public static Quad Read(BinaryReader reader)
         {
-            BinaryReader reader = new BinaryReader(file);
-            reader.BaseStream.Position = position;
             var side = reader.ReadDouble();
-            return  new Quad("Квадрат", side);
+            return  new Quad(side);
         }
         /// <summary>
         /// Запись данных в бинарный файл
         /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу для записи и режим доступа к файлу
+        /// <param name="writer">
+        /// Объект класса BinaryWriter, содержащий путь к файлу и методы для записи данных в файл
         /// </param>
-        /// <param name="figure">
-        /// Объект класса Figure, который необходимо записать в бинарный файл
-        /// </param>
-        public static void Write(FileStream file, Figure figure)
+        public void Write(BinaryWriter writer)
         {
-            BinaryWriter writer = new BinaryWriter(file);
-            writer.Write(((Quad)figure).Side);
+            writer.Write(this.A);
         }
         public static Quad Input()
         {
@@ -59,7 +47,7 @@
                 flag = false;
             else
                 Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
-            return new Quad("Квадрат", a);
+            return new Quad(a);
         }
     }
 }

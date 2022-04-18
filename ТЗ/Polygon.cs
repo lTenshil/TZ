@@ -1,29 +1,25 @@
 ﻿namespace ТЗ
 {
-    internal class Polygon: Figure
+    public class Polygon: IFigure
     {
-        public List<Point> ? Vertices { get; set; } 
-        public Polygon(string title,List<Point>? vertices): base(title)
+        public List<Point> Vertices { get; set; }
+        public string Title { get; set; } = "Многоугольник";
+
+        public Polygon(string title,List<Point>? vertices)
         {
             Vertices = vertices;
         }
         public Polygon( ) : base() { }
         /// <summary>
         /// Чтение данных из бинарного файла
-        /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу и его режим открытия
-        /// </param>
-        /// <param name="position">
-        /// Позиция в файле, начиная с которой необходимо начать чтение
+        /// <param name="reader"> 
+        /// Объект класса BinaryReader, содержащий путь к файлу и методы для чтения данных из файла
         /// </param>
         /// <returns>
         /// Возвращает считанный объект класса Polygon
         /// </returns>
-        public static Polygon Read(FileStream file, long position)
+        public static Polygon Read(BinaryReader reader)
         {
-            BinaryReader reader = new BinaryReader(file);
-            reader.BaseStream.Position = position;
             int n1 = reader.ReadInt32();
             List<Point> sides = new List<Point>();
             for (int i = 0; i < n1; i++)
@@ -37,17 +33,13 @@
         /// <summary>
         /// Записыь данных в бинарный файл
         /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу для записи и режим доступа к файлу
+        /// <param name="writer">
+        /// Объект класса BinaryWriter, содержащий путь к файлу и методы для записи данных в файл
         /// </param>
-        /// <param name="figure">
-        /// Объект типа Figure, который необходимо записать в файл
-        /// </param>
-        public static void Write(FileStream file, Figure figure)
+        public void Write(BinaryWriter writer)
         {
-            BinaryWriter writer = new BinaryWriter(file);
-            writer.Write(((Polygon)figure).Vertices.Count());
-            foreach (Point side in ((Polygon)figure).Vertices)
+            writer.Write(this.Vertices.Count());
+            foreach (Point side in this.Vertices)
             {
                 writer.Write(side.X);
                 writer.Write(side.Y);
@@ -69,7 +61,7 @@
             }
             else
                 Console.WriteLine("Вершины не заданы");
-            s += $"Периметр: {GetPerimeter()}, площадь - {GetArea()}";
+            s += $"Периметр: {P()}, площадь - {S()}";
             return s.ToString();
         }
 
@@ -131,27 +123,27 @@
         /// Координаты вершин многоугольника
         /// </param>
         /// <returns></returns>
-        public double Area_by_points(List<Point> points)
+        public double Area_by_points()
         {
             double s = 0;
-            if (points.Count > 0)
+            if (this.Vertices.Count > 0)
             {
-                points[points.Count - 1].X = points[0].X;
-                points[points.Count - 1].Y = points[0].Y;
-                for (int i = 1; i <= points.Count - 1; i++)
+                this.Vertices[Vertices.Count - 1].X = Vertices[0].X;
+                this.Vertices[Vertices.Count - 1].Y = Vertices[0].Y;
+                for (int i = 1; i <= Vertices.Count - 1; i++)
                 {
-                    s += (points[i - 1].X * points[i].Y - points[i - 1].Y * points[i].X);
+                    s += (Vertices[i - 1].X * Vertices[i].Y - Vertices[i - 1].Y * Vertices[i].X);
                 }
             }
             return Math.Abs(s / 2);
         }
-        public override double GetPerimeter()
+        public double P()
         {
-            return Math.Round(Perimeter_by_points(Vertices),2);
+            return Perimeter_by_points(Vertices);
         }
-        public override double GetArea()
+        public double S()
         {
-            return Math.Round(Area_by_points(Vertices),2);
+            return Area_by_points();
         }
     }
 }

@@ -1,52 +1,40 @@
 ﻿namespace ТЗ
 {
-    internal class Circle: Figure
+    public class Circle: IFigure
     {
-        public double Radius { get; set; }
-
-        public Circle(string title,double radius): base(title) { Radius = radius; }
-        public Circle() : base() { }
+        public double R { get; set; }
+        public string Title { get; set; } = "Окружность";
+        public Circle(double radius) => (R) = (radius);
+        public Circle() { }
         public override string ToString()
         {
-            return $"{Title} со радиусом {Radius}. Периметр - {GetPerimeter()}, площадь - {GetArea()}";
+            return $"{Title} со радиусом {R}. Периметр - {P()}, площадь - {S()}";
         }
-        public override double GetPerimeter() { return Math.Round(2 * Math.PI * Radius,2);}
-        public override double GetArea()
-        {
-            return Math.Round(Math.PI * Math.Pow(Radius,2),2);
-        }
+        public double P() { return 2 * Math.PI * R;}
+        public double S() { return Math.PI * Math.Pow(R,2); }
         /// <summary>
         /// Чтение данных из бинарного файла
         /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу и его режим открытия
-        /// </param>
-        /// <param name="position">
-        /// Позиция в файле, начиная с которой необходимо начать чтение
+        /// <param name="reader"> 
+        /// Объект класса BinaryReader, содержащий путь к файлу и методы для чтения данных из файла
         /// </param>
         /// <returns>
         /// Возвращает считанный объект класса Circle
         /// </returns>
-        public static Circle Read(FileStream file, long position)
+        public static Circle Read(BinaryReader reader)
         {
-            BinaryReader reader = new BinaryReader(file);
-            reader.BaseStream.Position = position;
             var radius = reader.ReadDouble();
-            return  new Circle("Окружность", radius);
+            return  new Circle(radius);
         }
         /// <summary>
         /// Запись данных в бинарный файл
         /// </summary>
-        /// <param name="file">
-        /// Объект класса FileStream, содержащий путь к файлу для записи и режим доступа к файлу
+        /// <param name="writer">
+        /// Объект класса BinaryWriter, содержащий путь к файлу и методы для записи данных в файл
         /// </param>
-        /// <param name="figure">
-        /// Объект класса Figure, который необходимо записать в бинарный файл
-        /// </param>
-        public static void Write(FileStream file, Figure figure)
+        public void Write(BinaryWriter writer)
         {
-            BinaryWriter writer = new BinaryWriter(file);
-            writer.Write(((Circle)figure).Radius);
+            writer.Write(this.R);
         }
         public static Circle Input()
         {
@@ -58,11 +46,11 @@
                 double a = double.Parse(Console.ReadLine());
                 if (a > 0)
                 {
-                    circle1 = new Circle("Окружность", a);
+                    circle1 = new Circle(a);
                     flag = false;
                 }
                 else
-                    Console.WriteLine("Внесены некорректные данные, внесите данные заново.");
+                    throw new Exception("Радиус не может быть отрицательным");
             }
             return circle1;
         }
